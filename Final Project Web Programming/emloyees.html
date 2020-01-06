@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/4.4.1/cerulean/bootstrap.min.css"</link>
+          <style>
+            body { min-height: auto; min-width: auto; text-align: center; background-color: chartreuse; }
+          </style>
+    <title>Employees</title>
+  </head>
+  <body onload="getRequest()">
+    <h1 id="namebox">Welcome!</h1>
+    <h1><u>Sales List</u></h1>
+    <p>Go back to <a href="/pf/">home</a></p>
+    <div class="container">
+
+      <p>Enter Employee Number:</p>
+      <input type="text" id="input" value="">
+      <input type="submit" value="Get Data!" onclick="btnClick()">
+      <table class="table" id="posts" margin-right="auto" margin-left="auto" border-collapse="auto" border="1px solid black" align="center">
+        <thead>
+          <tr>
+            <th>Order Number</th>
+            <th>Product Code</th>
+            <th>Price Each</th>
+            <th>Quantity Ordered</th>
+            <th>Total</th>
+          </tr>
+        </thead>
+        <tbody id="tablebody">
+
+        </tbody>
+      </table>
+    </div>
+
+    <script src="http://cobweb.cs.uga.edu/~scott/4300/js/jquery-3.4.1.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script>
+
+      function btnClick() {
+      var input = document.getElementById("input").value;
+      $.ajax({
+      url:"172.17.152.35/employees/",
+      dataType: 'json',
+      data: input,
+      type:"POST",
+      success:function(result){
+      //console.log("success");
+      processData(result);
+      }
+      });
+      }
+
+      function getRequest(){
+      //console.log("get running");
+      var urlParams = new URLSearchParams(location.search);
+      input = urlParams.get('id');
+      //console.log(input);
+      $.ajax({
+      url:"172.17.152.35/employees/",
+      dataType: 'json',
+      data: input,
+      type:"POST",
+      success:function(result){
+      //console.log("success");
+      processData(result);
+      }
+      });
+      }
+
+
+      function processData(result) {
+      $("#tablebody").empty();
+      $("#namebox").html("Welcome back, " + result[0].name);
+      $.each(result, function(i, item) {
+      $("#posts").append([
+      $("<tr>")
+        .append("<td>" + item.orderNumber + "</td>")
+        .append("<td>" + item.productCode + "</td>")
+        .append("<td>" + item.quantityOrdered + "</td>")
+        .append("<td>" + "$" + item.priceEach + "</td>")
+        .append("<td>" + "$" + item.total + "</td>")
+        ]);
+        })
+        }
+
+
+
+
+    </script>
+
+  </body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>PF</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/4.4.1/cerulean/bootstrap.min.css"</link>
+    <style>
+      body { min-height: auto; min-width: auto; text-align: center; background-color: chartreuse; }
+    </style>
+  </head>
+  <body>
+    <h1>Welcome!</h1>
+    <p>Are you a <a href="/customers/">customer</a> or an <a href="/employees/">employee</a>?</p>
+    <h1>Schema</h1>
+    <h3>Customers</h3>
+    <p>Enter a number between 100 and 104 in the customer page's text box, or id=[100-104] in the query string.</p>
+    <pre>
++----------------+-------------+------+-----+---------+-------+
+| Field          | Type        | Null | Key | Default | Extra |
++----------------+-------------+------+-----+---------+-------+
+| customerNumber | int(11)     | NO   | PRI | NULL    |       |
+| firstName      | varchar(20) | YES  |     | NULL    |       |
+| lastName       | varchar(20) | YES  |     | NULL    |       |
++----------------+-------------+------+-----+---------+-------+
+    </pre>
+    <h3>Employees</h3>
+    <p>Enter a number between 200 and 202 in the employee page's textbox, or id=[200-202] in the query string.</p>
+    <pre>
++----------------+-------------+------+-----+---------+-------+
+| Field          | Type        | Null | Key | Default | Extra |
++----------------+-------------+------+-----+---------+-------+
+| employeeNumber | int(11)     | NO   | PRI | NULL    |       |
+| firstName      | varchar(20) | YES  |     | NULL    |       |
+| lastName       | varchar(20) | YES  |     | NULL    |       |
++----------------+-------------+------+-----+---------+-------+
+    </pre>
+    <h3>Orders</h3>
+    <pre>
++----------------+-------------+------+-----+---------+-------+
+| Field          | Type        | Null | Key | Default | Extra |
++----------------+-------------+------+-----+---------+-------+
+| orderNumber    | int(11)     | NO   | PRI | NULL    |       |
+| productCode    | varchar(20) | NO   | PRI | NULL    |       |
+| quantity       | int(11)     | YES  |     | NULL    |       |
+| employeeNumber | int(11)     | YES  | MUL | NULL    |       |
+| customerNumber | int(11)     | YES  | MUL | NULL    |       |
++----------------+-------------+------+-----+---------+-------+
+    </pre>
+    <h3>Products</h3>
+    <pre>
++-------------+--------------+------+-----+---------+-------+
+| Field       | Type         | Null | Key | Default | Extra |
++-------------+--------------+------+-----+---------+-------+
+| productCode | varchar(20)  | NO   | PRI | NULL    |       |
+| priceEach   | decimal(4,2) | YES  |     | NULL    |       |
++-------------+--------------+------+-----+---------+-------+
+    </pre>
+  </body>
+</html>
